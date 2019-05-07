@@ -51,5 +51,17 @@ class Oblig7 {
             System.out.println("Skriv inn nye koordinater ('a' for aa avslutte)");
             ord = inn.nextLine().split(" ");
         }
+
+        static boolean[][] losningStringTilTabell(String losningString, int bredde, int hoyde) {
+            boolean[][] losning = new boolean[hoyde][bredde];
+            java.util.regex.Pattern p = java.util.regex.Pattern.compile("\\(([0-9]+),([0-9]+)\\)");
+            java.util.regex.Matcher m = p.matcher(losningString.replaceAll("\\s",""));
+            while (m.find()) {
+                int x = Integer.parseInt(m.group(1));
+                int y = Integer.parseInt(m.group(2));
+                losning[y][x] = true;
+            }
+            return losning;
+        }
     }
 }
