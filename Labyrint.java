@@ -60,6 +60,16 @@ public class Labyrint{
         return this.utveier;
     }
 
+    public String finnKortesteUtvei(){
+        String korteste = this.utveier.hent(0);
+        for (String s : this.utveier){
+            if (s.split(" ").length < korteste.split(" ").length){
+                korteste = s;
+            }
+        }
+        return korteste;
+    }
+
     public void nullStill(){
         this.utveier = new Lenkeliste<String>();
 

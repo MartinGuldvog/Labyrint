@@ -18,10 +18,10 @@ public abstract class Rute{
     public void gaa(String s){
         ubrukt = false;
         this.utvei = s;
-        utvei +=  " (" + Integer.toString(rad) + ", " + Integer.toString(kolonne) + ")-->";
+        utvei +=  "(" + Integer.toString(rad) + ", " + Integer.toString(kolonne) + ") --> ";
 
         if (this.erAapning()){
-            utvei = utvei.substring(0, utvei.length() - 3);
+            utvei = utvei.substring(0, utvei.length() - 4);
             utveier.leggTil(utvei);
             utvei = "";
         }
@@ -47,7 +47,6 @@ public abstract class Rute{
     }
 
     public void finnUtvei(){
-        // String s = "";
         this.gaa(utvei);
     }
 

@@ -34,12 +34,14 @@ class Oblig7 {
                 int startRad = Integer.parseInt(ord[0]);
 
                 Liste<String> utveier = l.finnUtveiFra(startRad, startKol);
+                String korteste = l.finnKortesteUtvei();
                 if (utveier.stoerrelse() != 0) {
                     int teller = 1;
                     for (String s : utveier) {
                         System.out.println("\nUtvei " + Integer.toString(teller) + ": " + s + "\n");
                         teller++;
                     }
+                    System.out.println("\n\nkorteste vei ut er: " + korteste + "\n\n");
                 } else {
                     System.out.println("Ingen utveier.");
                 }
@@ -48,20 +50,22 @@ class Oblig7 {
                 System.out.println("Ugyldig input!");
             }
 
+            // System.out.println("korteste vei ut er: " + korteste);
+
             System.out.println("Skriv inn nye koordinater ('a' for aa avslutte)");
             ord = inn.nextLine().split(" ");
         }
 
-        static boolean[][] losningStringTilTabell(String losningString, int bredde, int hoyde) {
-            boolean[][] losning = new boolean[hoyde][bredde];
-            java.util.regex.Pattern p = java.util.regex.Pattern.compile("\\(([0-9]+),([0-9]+)\\)");
-            java.util.regex.Matcher m = p.matcher(losningString.replaceAll("\\s",""));
-            while (m.find()) {
-                int x = Integer.parseInt(m.group(1));
-                int y = Integer.parseInt(m.group(2));
-                losning[y][x] = true;
-            }
-            return losning;
-        }
+        // static boolean[][] losningStringTilTabell(String losningString, int bredde, int hoyde) {
+        //     boolean[][] losning = new boolean[hoyde][bredde];
+        //     java.util.regex.Pattern p = java.util.regex.Pattern.compile("\\(([0-9]+),([0-9]+)\\)");
+        //     java.util.regex.Matcher m = p.matcher(losningString.replaceAll("\\s",""));
+        //     while (m.find()) {
+        //         int x = Integer.parseInt(m.group(1));
+        //         int y = Integer.parseInt(m.group(2));
+        //         losning[y][x] = true;
+        //     }
+        //     return losning;
+        // }
     }
 }
