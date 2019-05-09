@@ -15,6 +15,10 @@ public class Labyrint{
         this.kolonner = kolonner;
     }
 
+    public Rute[][] hentLabyrint(){
+        return labyrint;
+    }
+
     public static Labyrint lesFraFil(File fil) throws FileNotFoundException{
         Scanner inndata = new Scanner(fil);
 

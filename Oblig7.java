@@ -1,16 +1,70 @@
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.control.Button;
+import javafx.scene.text.Text;
+import javafx.scene.text.Font;
+import javafx.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-class Oblig7 {
+class Oblig7 extends Application {
+    Text statusinfo;
+    Knapp brett[][];
+    boolean ferdig = false;
+
+    static class Knapp extends Button {
+        char merke = ' ';
+
+        Knapp() {
+            super(" ");
+            setFont(new Font(50));
+            setPrefSize(120, 120);
+        }
+
+    }
+
+    class Klikkbehandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent e) {
+            if (! ferdig)
+            System.out.println("test");
+            // spillO((Knapp)e.getSource());
+        }
+    }
+
+    class Stoppbehandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent e) {
+            Platform.exit();
+        }
+    }
+
+    @Override
+    public void start(Stage teater) {
+	statusinfo = new Text("Velg en rute");
+	statusinfo.setFont(new Font(20));
+	statusinfo.setX(10);  statusinfo.setY(410);
+
+	Button stoppknapp = new Button("Stopp");
+	stoppknapp.setLayoutX(10);  stoppknapp.setLayoutY(450);
+	Stoppbehandler stopp = new Stoppbehandler();
+	stoppknapp.setOnAction(stopp);
+    }
+
     public static void main(String[] args) {
+        launch(args);
         String filnavn = null;
 
         if (args.length > 0) {
             filnavn = args[0];
         } else {
             System.out.println("FEIL! Riktig bruk av programmet: "
-                               +"java Oblig5 <labyrintfil>");
+            +"java Oblig7 <labyrintfil>");
             return;
         }
         File fil = new File(filnavn);
@@ -23,49 +77,20 @@ class Oblig7 {
             System.exit(1);
         }
 
-        // les start-koordinater fra standard input
-        Scanner inn = new Scanner(System.in);
-        System.out.println("Skriv inn koordinater <kolonne> <rad> ('a' for aa avslutte)");
-        String[] ord = inn.nextLine().split(" ");
-        while (!ord[0].equals("a")) {
+        Rute[][] lab = l.hentLabyrint();
 
-            try {
-                int startKol = Integer.parseInt(ord[1]);
-                int startRad = Integer.parseInt(ord[0]);
+        GridPane rutenett = new GridPane();
+        rutenett.setGridLinesVisible(true);
 
-                Liste<String> utveier = l.finnUtveiFra(startRad, startKol);
-                String korteste = l.finnKortesteUtvei();
-                if (utveier.stoerrelse() != 0) {
-                    int teller = 1;
-                    for (String s : utveier) {
-                        System.out.println("\nUtvei " + Integer.toString(teller) + ": " + s + "\n");
-                        teller++;
-                    }
-                    System.out.println("\n\nkorteste vei ut er: " + korteste + "\n\n");
-                } else {
-                    System.out.println("Ingen utveier.");
+        for(int i=0; i < lab.length; i++) {
+            for(int j=0; j < lab[i].length; j++) {
+                Rute denne = lab[i][j];
+                Knapp ny = new Knapp();
+                rutenett.add(ny, denne.hentRad(), denne.hentKolonne());
                 }
-                System.out.println();
-            } catch (NumberFormatException e) {
-                System.out.println("Ugyldig input!");
             }
 
-            // System.out.println("korteste vei ut er: " + korteste);
 
-            System.out.println("Skriv inn nye koordinater ('a' for aa avslutte)");
-            ord = inn.nextLine().split(" ");
-        }
 
-        // static boolean[][] losningStringTilTabell(String losningString, int bredde, int hoyde) {
-        //     boolean[][] losning = new boolean[hoyde][bredde];
-        //     java.util.regex.Pattern p = java.util.regex.Pattern.compile("\\(([0-9]+),([0-9]+)\\)");
-        //     java.util.regex.Matcher m = p.matcher(losningString.replaceAll("\\s",""));
-        //     while (m.find()) {
-        //         int x = Integer.parseInt(m.group(1));
-        //         int y = Integer.parseInt(m.group(2));
-        //         losning[y][x] = true;
-        //     }
-        //     return losning;
-        // }
     }
 }
