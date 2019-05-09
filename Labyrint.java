@@ -16,7 +16,15 @@ public class Labyrint{
     }
 
     public Rute[][] hentLabyrint(){
-        return labyrint;
+        return this.labyrint;
+    }
+
+    public int antallRader(){
+        return this.rader;
+    }
+
+    public int antallKolonner(){
+        return this.kolonner;
     }
 
     public static Labyrint lesFraFil(File fil) throws FileNotFoundException{
