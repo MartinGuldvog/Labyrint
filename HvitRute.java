@@ -1,8 +1,8 @@
 public class HvitRute extends Rute {
 
 
-    public HvitRute(int rad, int kolonne){
-        super(rad,kolonne);
+    public HvitRute(int rad, int kolonne, Labyrint l){
+        super(rad,kolonne, l);
     }
 
     @Override

@@ -10,12 +10,13 @@ public abstract class Rute{
     private static String utvei;
 
 
-    public Rute(int rad, int kolonne){
+    public Rute(int rad, int kolonne, Labyrint l){
         this.rad = rad;
         this.kolonne = kolonne;
+        this.lab = l;
     }
 
-    public void gaa(String s){
+    public void gaaN(String s){
         ubrukt = false;
         this.utvei = s;
         utvei +=  "(" + Integer.toString(rad) + ", " + Integer.toString(kolonne) + ") --> ";
@@ -23,7 +24,7 @@ public abstract class Rute{
         if (this.erAapning()){
             utvei = utvei.substring(0, utvei.length() - 4);
             utveier.leggTil(utvei);
-            utvei = "";
+            // utvei = "";
         }
 
         if (this.tilTegn() == '#'){
@@ -31,23 +32,125 @@ public abstract class Rute{
         }
 
         if (nord != null && nord.tilTegn() == '.' && nord.ubrukt()){
-            nord.gaa(utvei);
+            nord.gaaN(utvei);
         }
         if (syd != null && syd.tilTegn() == '.' && syd.ubrukt()){
-            syd.gaa(utvei);
+            syd.gaaN(utvei);
         }
         if (ost != null && ost.tilTegn() == '.' && ost.ubrukt()){
-            ost.gaa(utvei);
+            ost.gaaN(utvei);
         }
         if (vest != null && vest.tilTegn() == '.' && vest.ubrukt()){
-            vest.gaa(utvei);
+            vest.gaaN(utvei);
+        }
+
+        ubrukt = true;
+    }
+    public void gaaS(String s){
+        ubrukt = false;
+        this.utvei = s;
+        utvei +=  "(" + Integer.toString(rad) + ", " + Integer.toString(kolonne) + ") --> ";
+
+        if (this.erAapning()){
+            utvei = utvei.substring(0, utvei.length() - 4);
+            utveier.leggTil(utvei);
+            // utvei = "";
+        }
+
+        if (this.tilTegn() == '#'){
+            return;
+        }
+
+        if (syd != null && syd.tilTegn() == '.' && syd.ubrukt()){
+            syd.gaaS(utvei);
+        }
+        if (nord != null && nord.tilTegn() == '.' && nord.ubrukt()){
+            nord.gaaS(utvei);
+        }
+        if (ost != null && ost.tilTegn() == '.' && ost.ubrukt()){
+            ost.gaaS(utvei);
+        }
+        if (vest != null && vest.tilTegn() == '.' && vest.ubrukt()){
+            vest.gaaS(utvei);
+        }
+
+        ubrukt = true;
+    }
+    public void gaaV(String s){
+        ubrukt = false;
+        this.utvei = s;
+        utvei +=  "(" + Integer.toString(rad) + ", " + Integer.toString(kolonne) + ") --> ";
+
+        if (this.erAapning()){
+            utvei = utvei.substring(0, utvei.length() - 4);
+            utveier.leggTil(utvei);
+            // utvei = "";
+        }
+
+        if (this.tilTegn() == '#'){
+            return;
+        }
+        if (vest != null && vest.tilTegn() == '.' && vest.ubrukt()){
+            vest.gaaV(utvei);
+        }
+
+        if (nord != null && nord.tilTegn() == '.' && nord.ubrukt()){
+            nord.gaaV(utvei);
+        }
+        if (syd != null && syd.tilTegn() == '.' && syd.ubrukt()){
+            syd.gaaV(utvei);
+        }
+        if (ost != null && ost.tilTegn() == '.' && ost.ubrukt()){
+            ost.gaaV(utvei);
+        }
+
+        ubrukt = true;
+    }
+    public void gaaO(String s){
+        ubrukt = false;
+        this.utvei = s;
+        utvei +=  "(" + Integer.toString(rad) + ", " + Integer.toString(kolonne) + ") --> ";
+
+        if (this.erAapning()){
+            utvei = utvei.substring(0, utvei.length() - 4);
+            utveier.leggTil(utvei);
+            // utvei = "";
+        }
+
+        if (this.tilTegn() == '#'){
+            return;
+        }
+        if (ost != null && ost.tilTegn() == '.' && ost.ubrukt()){
+            ost.gaaO(utvei);
+        }
+
+        if (nord != null && nord.tilTegn() == '.' && nord.ubrukt()){
+            nord.gaaO(utvei);
+        }
+        if (syd != null && syd.tilTegn() == '.' && syd.ubrukt()){
+            syd.gaaO(utvei);
+        }
+        if (vest != null && vest.tilTegn() == '.' && vest.ubrukt()){
+            vest.gaaO(utvei);
         }
 
         ubrukt = true;
     }
 
-    public void finnUtvei(){
-        this.gaa(utvei);
+    public void finnUtveiN(){
+        this.gaaN(utvei);
+    }
+
+    public void finnUtveiS(){
+        this.gaaS(utvei);
+    }
+
+    public void finnUtveiV(){
+        this.gaaV(utvei);
+    }
+
+    public void finnUtveiO(){
+        this.gaaO(utvei);
     }
 
     public Lenkeliste<String> hentUtveier(){
@@ -55,6 +158,12 @@ public abstract class Rute{
     }
 
     public void nullStill(){
+        this.ubrukt = true;
+        this.utvei = new String();
+        // this.utveier = new Lenkeliste<String>();
+    }
+
+    public void nullStillHelt(){
         this.ubrukt = true;
         this.utvei = new String();
         this.utveier = new Lenkeliste<String>();

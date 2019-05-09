@@ -37,6 +37,8 @@ public class Labyrint{
 
         Rute[][] labyrinten = new Rute[rader][kolonner];
 
+        Labyrint ny = new Labyrint(labyrinten, rader, kolonner);
+
         for(int i=0; i < labyrinten.length; i++) {
             linje = inndata.nextLine();
             char[] biter = linje.toCharArray();
@@ -45,29 +47,35 @@ public class Labyrint{
                     char tegn = biter[j];
 
                     if (tegn == '#'){
-                        SortRute rute = new SortRute(i,j);
+                        SortRute rute = new SortRute(i,j, ny);
                         labyrinten[i][j] = rute;
                     }
                     else if (tegn == '.'){
                         if (i == 0 || j== 0 || i == rader -1 || j == kolonner -1){
-                            Aapning rute = new Aapning(i,j);
+                            Aapning rute = new Aapning(i,j, ny);
                             labyrinten[i][j] = rute;
                         }else{
-                            HvitRute rute = new HvitRute(i,j);
+                            HvitRute rute = new HvitRute(i,j, ny);
                             labyrinten[i][j] = rute;
                         }
                     }
             }
         }
         sjekkOgSettInnNaboer(labyrinten, rader, kolonner);
-        Labyrint ny = new Labyrint(labyrinten, rader, kolonner);
         return ny;
     }
 
     public Liste<String> finnUtveiFra(int rad, int kolonne){
         nullStill();
         Rute r = labyrint[rad][kolonne];
-        r.finnUtvei();
+        r.finnUtveiN();
+        nullStill();
+        r.finnUtveiS();
+        nullStill();
+        r.finnUtveiV();
+        nullStill();
+        r.finnUtveiO();
+        nullStill();
         this.utveier = r.hentUtveier();
         return this.utveier;
     }
@@ -83,12 +91,23 @@ public class Labyrint{
     }
 
     public void nullStill(){
-        this.utveier = new Lenkeliste<String>();
+        // this.utveier = new Lenkeliste<String>();
 
         for(int i=0; i < labyrint.length; i++) {
             for(int j=0; j < labyrint[i].length; j++) {
                 Rute denne = labyrint[i][j];
                 denne.nullStill();
+            }
+        }
+    }
+
+    public void nullStillHelt(){
+        this.utveier = new Lenkeliste<String>();
+
+        for(int i=0; i < labyrint.length; i++) {
+            for(int j=0; j < labyrint[i].length; j++) {
+                Rute denne = labyrint[i][j];
+                denne.nullStillHelt();
             }
         }
     }

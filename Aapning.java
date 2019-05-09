@@ -1,7 +1,7 @@
 class Aapning extends HvitRute{
 
-    public Aapning(int rad, int kolonne){
-        super(rad,kolonne);
+    public Aapning(int rad, int kolonne, Labyrint l){
+        super(rad,kolonne, l);
     }
 
     @Override
