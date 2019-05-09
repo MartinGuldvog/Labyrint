@@ -4,6 +4,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -20,26 +22,34 @@ public class Oblig7 extends Application {
     private int kolonner;
     private Rute[][] temp;
     public Firkant[][] ruter;
+    public TextArea tekstfelt = new TextArea();
 
-    public void start(Stage stage){
-        this.labyrint = leggTilLabyrint(stage);
+    public void start(Stage teater){
+        this.labyrint = leggTilLabyrint(teater);
         this.rader = labyrint.antallRader();
         this.kolonner = labyrint.antallKolonner();
         this.temp = labyrint.hentLabyrint();
 
-        GridPane root = new GridPane();
-        Scene scene = new Scene(root);
+        GridPane rutenett = new GridPane();
+        Scene scene = new Scene(rutenett);
         this.ruter = settOppBrett();
 
         for (int i = 0; i < rader; i++) {
             for (int j = 0; j < kolonner; j++) {
-                root.add(ruter[i][j], j, i);
+                rutenett.add(ruter[i][j], j, i);
             }
         }
 
-        stage.setScene(scene);
-        stage.setTitle("Oblig7");
-        stage.show();
+        tekstfelt.setPrefRowCount(1);
+        tekstfelt.setPrefSize(150,20);
+        tekstfelt.setText("Trykk på en hvit rute for aa starte!");
+        rutenett.add(tekstfelt,0,this.rader +1, labyrint.antallKolonner(),1);
+        // Scene tekst = new Scene();
+        // tekst.add(tekstfelt, 0, 0);
+
+        teater.setScene(scene);
+        teater.setTitle("Oblig7");
+        teater.show();
     }
 
     private Firkant[][] settOppBrett() {
@@ -78,7 +88,11 @@ public class Oblig7 extends Application {
     }
 
     public void finnKortesteUtvei(int rad, int kolonne){
+        int teller = 0;
         Liste<String> utveier = this.labyrint.finnUtveiFra(rad,kolonne);
+        for (String s : utveier){
+            teller++;
+        }
         String korteste = this.labyrint.finnKortesteUtvei();
 
         boolean[][] losning = losningStringTilTabell(korteste, this.kolonner, this.rader);
@@ -90,6 +104,8 @@ public class Oblig7 extends Application {
                 }
             }
         }
+
+        tekstfelt.setText("Antall mulige utveier: " + teller);
 
     }
 
