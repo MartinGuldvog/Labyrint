@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javafx.stage.FileChooser;
+import javafx.scene.layout.HBox;
+import javafx.scene.control.Button;
 
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
@@ -44,8 +46,12 @@ public class Oblig7 extends Application {
         tekstfelt.setPrefSize(150,20);
         tekstfelt.setText("Trykk på en hvit rute for aa starte!");
         rutenett.add(tekstfelt,0,this.rader +1, labyrint.antallKolonner(),1);
-        // Scene tekst = new Scene();
-        // tekst.add(tekstfelt, 0, 0);
+
+        Button knapp1 = new Button("Ny Utvei");
+        Button knapp2 = new Button("Restart");
+        Button knapp3 = new Button("Stop");
+        HBox knapper = new HBox(knapp1, knapp2, knapp3);
+        rutenett.add(knapper, 0,this.rader +2, labyrint.antallKolonner(),1);
 
         teater.setScene(scene);
         teater.setTitle("Oblig7");
@@ -134,7 +140,7 @@ public class Oblig7 extends Application {
         }
 
         public void settIUtvei(){
-            firkant.setFill(Color.BLUE);
+            firkant.setFill(Color.ORANGE);
         }
 
         private void klikk(){
