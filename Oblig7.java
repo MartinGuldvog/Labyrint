@@ -15,10 +15,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 public class Oblig7 extends Application {
-    private Labyrint labyrint;
+    public Labyrint labyrint;
     private int rader;
     private int kolonner;
     private Rute[][] temp;
+    public Firkant[][] ruter;
 
     public void start(Stage stage){
         this.labyrint = leggTilLabyrint(stage);
@@ -28,7 +29,7 @@ public class Oblig7 extends Application {
 
         GridPane root = new GridPane();
         Scene scene = new Scene(root);
-        Firkant[][] ruter = settOppBrett();
+        this.ruter = settOppBrett();
 
         for (int i = 0; i < rader; i++) {
             for (int j = 0; j < kolonner; j++) {
@@ -53,7 +54,6 @@ public class Oblig7 extends Application {
     }
 
     private Labyrint leggTilLabyrint(Stage s){
-        // File fil = new File("4.in");
         File fil = new FileChooser().showOpenDialog(s);
         Labyrint l = null;
         try {
@@ -65,14 +65,44 @@ public class Oblig7 extends Application {
         return l;
     }
 
+    static boolean[][] losningStringTilTabell(String losningString, int bredde, int hoyde) {
+        boolean[][] losning = new boolean[hoyde][bredde];
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile("\\(([0-9]+),([0-9]+)\\)");
+        java.util.regex.Matcher m = p.matcher(losningString.replaceAll("\\s",""));
+        while (m.find()) {
+            int x = Integer.parseInt(m.group(1));
+            int y = Integer.parseInt(m.group(2));
+            losning[y][x] = true;
+        }
+        return losning;
+    }
+
+    public void finnKortesteUtvei(int rad, int kolonne){
+        Liste<String> utveier = this.labyrint.finnUtveiFra(rad,kolonne);
+        String korteste = this.labyrint.finnKortesteUtvei();
+
+        boolean[][] losning = losningStringTilTabell(korteste, this.kolonner, this.rader);
+
+        for (int i = 0; i < rader; i++) {
+            for (int j = 0; j < kolonner; j++) {
+                if (losning[i][j] == true){
+                    ruter[j][i].settIUtvei();
+                }
+            }
+        }
+
+    }
+
     class Firkant extends StackPane {
         private boolean erHvit = false;
         private boolean erSort = false;
         private Rectangle firkant;
-        // private Rute rute;
+        public int rad,kolonne;
         private boolean erBesokt;
 
         public Firkant(Rute r){
+            this.rad = r.hentRad();
+            this.kolonne = r.hentKolonne();
             if (r.tilTegn() == '.'){
                 firkant = new Rectangle(15,15, Color.WHITE);
                 // firkant.setStroke(Color.BLACK);
@@ -87,8 +117,13 @@ public class Oblig7 extends Application {
             }
         }
 
+        public void settIUtvei(){
+            firkant.setFill(Color.BLUE);
+        }
+
         private void klikk(){
-            this.erBesokt = true;
+            finnKortesteUtvei(rad,kolonne);
+
        }
     }
 }
