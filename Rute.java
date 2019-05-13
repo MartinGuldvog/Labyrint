@@ -718,6 +718,10 @@ public abstract class Rute{
         return this.utveier;
     }
 
+    public void settUbrukt(){
+        this.ubrukt = true;
+    }
+
     public void nullStill(){
         this.ubrukt = true;
         this.utvei = new String();
