@@ -179,8 +179,8 @@ public class Oblig7 extends Application {
     }
 
     class Firkant extends StackPane {
-        private boolean erHvit = false;
-        private boolean erSort = false;
+        // private boolean erHvit = false;
+        // private boolean erSort = false;
         private Rectangle firkant;
         public int rad,kolonne;
         private boolean erILosning = false;
