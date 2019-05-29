@@ -91,19 +91,6 @@ public abstract class Rute{
         this.vest = nabo;
     }
 
-    public Rute hentNaboNord(){
-        return this.nord;
-    }
-    public Rute hentNaboSyd(){
-        return this.syd;
-    }
-    public Rute hentNaboOst(){
-        return this.ost;
-    }
-    public Rute hentNaboVest(){
-        return this.vest;
-    }
-
     public abstract char tilTegn();
 
     public boolean erAapning(){
