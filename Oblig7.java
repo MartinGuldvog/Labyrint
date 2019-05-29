@@ -68,7 +68,6 @@ public class Oblig7 extends Application {
         knapper.setPrefSize(130,20);
         rutenett.add(knapper, 0,this.rader +2, labyrint.antallKolonner(),1);
         rutenett.setHalignment(knapper, HPos.CENTER);
-        // rutenett.setPrefSize(150,130);
 
         teater.setScene(scene);
         teater.setTitle("Oblig7");
@@ -179,8 +178,6 @@ public class Oblig7 extends Application {
     }
 
     class Firkant extends StackPane {
-        // private boolean erHvit = false;
-        // private boolean erSort = false;
         private Rectangle firkant;
         public int rad,kolonne;
         private boolean erILosning = false;
@@ -190,15 +187,12 @@ public class Oblig7 extends Application {
             this.kolonne = r.hentKolonne();
             if (r.tilTegn() == '.'){
                 firkant = new Rectangle(15,15, Color.WHITE);
-                // firkant.setStroke(Color.BLACK);
                 getChildren().add(firkant);
                 firkant.setOnMouseClicked(e -> klikk());
-                this.erHvit = true;
             }else {
                 firkant = new Rectangle(15,15, Color.BLACK);
                 firkant.setStroke(Color.BLACK);
                 getChildren().add(firkant);
-                this.erSort = true;
             }
         }
 

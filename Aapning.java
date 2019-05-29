@@ -17,4 +17,10 @@ class Aapning extends HvitRute{
     public boolean erAapning(){
         return true;
     }
+
+    @Override
+    public void gaa(String s){
+        s +=  "(" + Integer.toString(rad) + ", " + Integer.toString(kolonne) + ")";
+        utveier.leggTil(s);
+    }
 }

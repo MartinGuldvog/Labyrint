@@ -68,54 +68,7 @@ public class Labyrint{
     public Liste<String> finnUtveiFra(int rad, int kolonne){
         nullStill();
         Rute r = labyrint[rad][kolonne];
-        r.finnUtvei1();
-        nullStill();
-        r.finnUtvei2();
-        nullStill();
-        r.finnUtvei3();
-        nullStill();
-        r.finnUtvei4();
-        nullStill();
-        r.finnUtvei5();
-        nullStill();
-        r.finnUtvei6();
-        nullStill();
-        r.finnUtvei7();
-        nullStill();
-        r.finnUtvei8();
-        nullStill();
-        r.finnUtvei9();
-        nullStill();
-        r.finnUtvei10();
-        nullStill();
-        r.finnUtvei11();
-        nullStill();
-        r.finnUtvei12();
-        nullStill();
-        r.finnUtvei13();
-        nullStill();
-        r.finnUtvei14();
-        nullStill();
-        r.finnUtvei15();
-        nullStill();
-        r.finnUtvei16();
-        nullStill();
-        r.finnUtvei17();
-        nullStill();
-        r.finnUtvei18();
-        nullStill();
-        r.finnUtvei19();
-        nullStill();
-        r.finnUtvei20();
-        nullStill();
-        r.finnUtvei21();
-        nullStill();
-        r.finnUtvei22();
-        nullStill();
-        r.finnUtvei23();
-        nullStill();
-        r.finnUtvei24();
-        nullStill();
+        r.finnUtvei();
         this.utveier = r.hentUtveier();
         return this.utveier;
     }
@@ -131,8 +84,6 @@ public class Labyrint{
     }
 
     public void nullStill(){
-        // this.utveier = new Lenkeliste<String>();
-
         for(int i=0; i < labyrint.length; i++) {
             for(int j=0; j < labyrint[i].length; j++) {
                 Rute denne = labyrint[i][j];
