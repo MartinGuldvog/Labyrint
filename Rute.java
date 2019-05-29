@@ -18,10 +18,7 @@ public abstract class Rute{
     }
 
     public void gaa(String s){
-        naboer[0] = this.nord;
-        naboer[1] = this.syd;
-        naboer[2] = this.ost;
-        naboer[3] = this.vest;
+        settNaboer();
         ubrukt = false;
         this.utvei = s;
         utvei +=  "(" + Integer.toString(rad) + ", " + Integer.toString(kolonne) + ") --> ";
@@ -39,6 +36,13 @@ public abstract class Rute{
             }
         }
         ubrukt = true;
+    }
+
+    public void settNaboer(){
+        this.naboer[0] = this.nord;
+        this.naboer[1] = this.syd;
+        this.naboer[2] = this.ost;
+        this.naboer[3] = this.vest;
     }
 
     public void finnUtvei(){
